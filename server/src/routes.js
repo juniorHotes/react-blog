@@ -10,8 +10,13 @@ const CategoryController = require('./database/controllers/admin/CategoryControl
 const ArticleController = require('./database/controllers/admin/ArticleController')
 
 /*########## CATEGORY CONTROLLERS ##########*/
+routes.get('/admin/categories/:page', CategoryController.index)
 routes.get('/admin/category/new', CategoryController.newCategory)
-routes.post('/admin/category/new/insert', CategoryController.inserNewCategory)
+routes.get('/admin/category/edit/:id', CategoryController.editCategory)
+
+routes.post('/admin/category/update', CategoryController.UPDATE)
+routes.post('/admin/category/insert', CategoryController.INSERT)
+routes.post('/admin/category/delete', CategoryController.DELETE)
 
 /*########## ARTICLE CONTROLLERS ##########*/
 
