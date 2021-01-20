@@ -1,17 +1,21 @@
 const Slugify = require('slugify')
-
 const Category = require('../../migrations/category')
 
 /*========== (GET) show all registered categories  ==========*/
 const index = async (req, res) => {
     const page = parseInt(req.params.page - 1)
-    const pageOffset = page * 8
+    const limit = 8
+    const pageOffset = page * limit
+
+    if(isNaN(page)) {
+        return res.sendStatus(404)
+    }
 
     await Category.findAndCountAll({
-        limit: 8,
+        limit: limit,
         offset: pageOffset
     }).then(categories => {
-        const pages = pageOffset + 1 >= categories.count ? false : true
+        const pages = pageOffset + limit >= categories.count ? false : true
         res.json({ pages, categories })
         res.sendStatus(200)
     }).catch(err => {
@@ -19,13 +23,13 @@ const index = async (req, res) => {
         console.log("Error on find categories: " + err)
     })
 }
-/*========== (GET) New category registration page  ==========*/
-const newCategory = async (req, res) => {
-    res.send('New category registration page')
-}
 /*========== (GET) Page to edit category  ==========*/
 const editCategory = async (req, res) => {
     const id = req.params.id
+
+    if(isNaN(id)) {
+        return res.sendStatus(404)
+    }
 
     await Category.findOne({
         where: { id: id }
@@ -99,7 +103,6 @@ const DELETE = async (req, res) => {
 
 module.exports = {
     index,
-    newCategory,
     editCategory,
     INSERT,
     UPDATE,
