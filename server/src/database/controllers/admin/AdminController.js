@@ -44,8 +44,6 @@ const INSERT = async (req, res) => {
                 const salt = bcryptjs.genSaltSync(10)
                 const hash = bcryptjs.hashSync(password, salt)
 
-                console.log("Senha: " + hash)
-
                 Admin.create({
                     email: email,
                     password: hash
