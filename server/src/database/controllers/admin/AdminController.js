@@ -2,9 +2,6 @@ const Admin = require('../../migrations/Admin')
 const bcryptjs = require('bcryptjs')
 // const AdminAuth = require('../middleware/AdminAuth')
 
-const index = async (req, res) => {
-    res.send('Page login admin')
-}
 /*========== (GET) login  ==========*/
 const login = async (req, res) => {
     const email = req.body.email
@@ -30,7 +27,9 @@ const login = async (req, res) => {
                 res.send('Este usuário não está cadastrado!')
                 res.sendStatus(400)
             }
-        })
+        }).catch(() => {
+        res.sendStatus(404)
+    })
 }
 
 /*========== (POST) Create admin  ==========*/
@@ -75,7 +74,7 @@ const UPDATE = async (req, res) => {
                 if (correct) {
                     const salt = bcryptjs.genSaltSync(10)
                     const hash = bcryptjs.hashSync(password, salt)
-    
+
                     await Admin.update({
                         password: hash
                     }, {
@@ -123,7 +122,6 @@ const logout = async (req, res) => {
 }
 
 module.exports = {
-    index,
     login,
     INSERT,
     UPDATE,
