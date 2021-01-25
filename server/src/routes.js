@@ -12,7 +12,6 @@ const CategoryController = require('./database/controllers/admin/CategoryControl
 const AdminPostController = require('./database/controllers/admin/AdminPostController')
 
 /*########## ADMIN CONTROLLERS ##########*/
-routes.get('/admin', AdminController.index)
 routes.get('/admin/logout', AdminController.logout)
 
 routes.post('/admin/login', AdminController.login)
