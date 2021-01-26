@@ -84,7 +84,6 @@ const UPDATE = async (req, res) => {
                         res.sendStatus(200)
                     }).catch(err => {
                         res.sendStatus(404)
-                        console.log("Error on update password: " + err)
                     })
                 } else {
                     res.send('Email ou senha inválido')
@@ -96,7 +95,6 @@ const UPDATE = async (req, res) => {
             }
         }).catch(err => {
             res.sendStatus(404)
-            console.log("Error on update password: " + err)
         })
 }
 
@@ -111,7 +109,6 @@ const DELETE = async (req, res) => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on delete user: " + err)
     })
 }
 

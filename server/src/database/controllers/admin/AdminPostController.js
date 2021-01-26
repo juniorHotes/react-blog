@@ -22,7 +22,6 @@ const index = async (req, res) => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on find posts: " + err)
     })
 }
 /*========== (GET) New post registration page  ==========*/
@@ -34,7 +33,6 @@ const newPost = async (req, res) => {
             res.sendStatus(200)
         }).catch(err => {
             res.sendStatus(404)
-            console.log("Error on find categories: " + err)
         })
 }
 /*========== (GET) Page to edit post  ==========*/
@@ -58,7 +56,6 @@ const editPost = async (req, res) => {
         })
     } catch (err) {
         res.sendStatus(404)
-        console.log("Error on find posts: " + err)
     }
 }
 /*========== (POST) Register new post in database ==========*/
@@ -89,7 +86,6 @@ const INSERT = async (req, res) => {
         })
     } catch (err) {
         res.send({ error: err })
-        console.log("Error on insert post: " + err)
         res.sendStatus(404)
     }
 }
@@ -113,7 +109,6 @@ const UPDATE = async (req, res) => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on update post: " + err)
     })
 }
 /*========== (POST) Delete post  ==========*/
@@ -127,7 +122,6 @@ const DELETE = async (req, res) => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on delete post: " + err)
     })
 }
 

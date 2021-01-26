@@ -20,7 +20,6 @@ const index = async (req, res) => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on find categories: " + err)
     })
 }
 /*========== (GET) Page to edit category  ==========*/
@@ -38,7 +37,6 @@ const editCategory = async (req, res) => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on find category: " + err)
     })
 }
 /*========== (POST) Register new category in database ==========*/
@@ -64,7 +62,6 @@ const INSERT = async (req, res) => {
         })
     } catch (err) {
         res.send({ error: err })
-        console.log("Error on insert category: " + err)
         res.sendStatus(404)
     }
 }
@@ -83,7 +80,6 @@ const UPDATE = async (req, res) => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on update category: " + err)
     })
 }
 /*========== (POST) Delete category  ==========*/
@@ -97,7 +93,6 @@ const DELETE = async (req, res) => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on delete category: " + err)
     })
 }
 
