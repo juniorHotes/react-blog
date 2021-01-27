@@ -1,29 +1,4 @@
 const Comment = require('../../migrations/Comment')
-const Post = require('../../migrations/post')
-
-/*========== (GET) Show all comments  ==========*/
-const index = async (req, res) => {
-    const page = parseInt(req.params.page - 1)
-    const limit = 8
-    const pageOffset = page * limit
-
-    if (isNaN(page)) {
-        return res.sendStatus(404)
-    }
-
-    await Comment.findAndCountAll({
-        include: [{ model: Post }],
-        limit: limit,
-        offset: pageOffset
-    })
-    .then(comment => {
-        const pagination = pageOffset + limit >= comment.count ? false : true
-        res.json({ pagination, comment })
-        res.sendStatus(200)
-    }).catch(err => {
-        res.sendStatus(404)
-    })
-}
 
 /*========== (POST) Insert comment  ==========*/
 const INSERT = async (req, res) => {
@@ -37,15 +12,47 @@ const INSERT = async (req, res) => {
         email: email,
         comment: comment,
         postId: postId
-    })
-    .then(() => {
+    }).then(() => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
     })
 }
 
+/*========== (POST) Update comment  ==========*/
+const UPDATE = async (req, res) => {
+    const id = req.body.id
+    const name = req.body.name
+    const email = req.body.email
+    const comment = req.body.comment
+
+    await Comment.update({
+        name: name,
+        email: email,
+        comment: comment,
+    }, {
+        where: { id: id }
+    }).then(() => {
+        res.sendStatus(200)
+    }).catch(err => {
+        res.sendStatus(404)
+    })
+}
+
+/*========== (POST) Delete comment  ==========*/
+const DELETE = async (req, res) => {
+    const id = req.body.id
+
+    await Comment.destroy({ where: { id: id } })
+        .then(() => {
+            res.sendStatus(200)
+        }).catch(err => {
+            res.sendStatus(404)
+        })
+}
+
 module.exports = {
-    index,
-    INSERT
+    INSERT,
+    UPDATE,
+    DELETE
 }
