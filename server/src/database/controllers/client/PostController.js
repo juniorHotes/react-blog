@@ -16,7 +16,6 @@ const index = async (req, res) => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on find posts: " + err)
     })
 }
 
@@ -36,7 +35,6 @@ const post = async (req, res) => {
         })
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on find posts: " + err)
     })
 }
 
@@ -61,7 +59,6 @@ const allPosts = async (req, res) => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on find posts: " + err)
     })
 }
 
@@ -90,7 +87,6 @@ const category = async (req, res) => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on find posts: " + err)
     })
 }
 
@@ -100,8 +96,6 @@ const search = async (req, res) => {
     const page = parseInt(req.params.page - 1)
     const limit = 8
     const pageOffset = page * limit
-
-    console.log(query)
 
     if (isNaN(page)) {
         return res.sendStatus(404)
@@ -119,7 +113,6 @@ const search = async (req, res) => {
         res.sendStatus(200)
     }).catch(err => {
         res.sendStatus(404)
-        console.log("Error on find posts: " + err)
     })
 }
 
