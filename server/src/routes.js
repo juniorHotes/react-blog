@@ -8,6 +8,7 @@ connection.authenticate()
 
 const AdminController = require('./database/controllers/admin/AdminController')
 const CommentController = require('./database/controllers/client/CommentController')
+const ResponseController = require('./database/controllers/client/ResponseController')
 const PostController = require('./database/controllers/client/PostController')
 const CategoryController = require('./database/controllers/admin/CategoryController')
 const AdminPostController = require('./database/controllers/admin/AdminPostController')
@@ -42,14 +43,22 @@ routes.post('/admin/post/delete', AdminPostController.DELETE)
 
 //#region ########## POST CONTROLLERS ##########
 routes.get('/', PostController.index)
+routes.get('/post/:slug', PostController.post)
 routes.get('/posts/:page', PostController.allPosts)
 routes.get('/posts/categoty/:slug/:page', PostController.category)
 routes.get('/posts/search/:page', PostController.search)
 //#endregion
 
 //#region ########## COMMENTS CONTROLLERS ##########
-routes.get('/admin/comments/:page', CommentController.index)
 routes.post('/comment/insert', CommentController.INSERT)
+routes.post('/comment/update', CommentController.UPDATE)
+routes.post('/comment/delete', CommentController.DELETE)
+//#endregion
+
+//#region ########## RESPONSE CONTROLLERS ##########
+routes.post('/response/insert', ResponseController.INSERT)
+routes.post('/response/update', ResponseController.UPDATE)
+routes.post('/response/delete', ResponseController.DELETE)
 //#endregion
 
 module.exports = routes
