@@ -1,4 +1,6 @@
 const Post = require('../../migrations/post')
+const Comment = require('../../migrations/Comment')
+const Response = require('../../migrations/Response')
 const Category = require('../../migrations/category')
 const Op = require('sequelize').Op
 
@@ -12,6 +14,26 @@ const index = async (req, res) => {
     }).then(post => {
         res.json(post)
         res.sendStatus(200)
+    }).catch(err => {
+        res.sendStatus(404)
+        console.log("Error on find posts: " + err)
+    })
+}
+
+const post = async (req, res) => {
+    const postSlug = req.params.slug
+
+    await Post.findOne({
+        where: { slug: postSlug },
+        include: [{ model: Category }]
+    }).then(post => {
+        Comment.findAll({
+            include: { model: Response },
+            where: { postId: post.id }
+        }).then(comment => {
+            res.json({ post, comment })
+            res.sendStatus(200)
+        })
     }).catch(err => {
         res.sendStatus(404)
         console.log("Error on find posts: " + err)
@@ -57,7 +79,7 @@ const category = async (req, res) => {
     await Post.findAndCountAll({
         order: [['id', 'DESC']],
         limit: limit,
-        offset: pageOffset, 
+        offset: pageOffset,
         include: [{
             model: Category,
             where: { slug: slug },
@@ -86,7 +108,7 @@ const search = async (req, res) => {
     }
 
     await Post.findAndCountAll({
-        where: { title: {[Op.like]: "%" + query + "%"} },
+        where: { title: { [Op.like]: "%" + query + "%" } },
         order: [['id', 'DESC']],
         limit: limit,
         offset: pageOffset,
@@ -103,6 +125,7 @@ const search = async (req, res) => {
 
 module.exports = {
     index,
+    post,
     allPosts,
     category,
     search
