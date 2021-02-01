@@ -13,6 +13,31 @@ const PostController = require('./database/controllers/client/PostController')
 const CategoryController = require('./database/controllers/admin/CategoryController')
 const AdminPostController = require('./database/controllers/admin/AdminPostController')
 
+const SendEmail = require('./database/controllers/SendEmail')
+
+routes.post('/contact-admin/env', (req, res) => {
+    const name = req.body.name
+    const email = req.body.email
+    const msg = req.body.msg
+
+    const styles = `
+            max-width: 120px;
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            padding: 12px;
+            background: #00adef;
+            color: white;
+            text-align: center;`
+
+
+    SendEmail.main({
+        subject: `${name} Entrou em contato - ${email}`,
+        html: `<p>${msg}</p> 
+               <a style="${styles}" href='http://localhost:3333/'>Ir para o blog</a>`
+    }).then(res.sendStatus(200)).catch(res.sendStatus(400))
+})
+
 //#region ########## ADMIN CONTROLLERS ##########
 routes.get('/admin/logout', AdminController.logout)
 
