@@ -21,34 +21,18 @@ const INSERT = async (req, res) => {
 
 /*========== (POST) Update comment  ==========*/
 const UPDATE = async (req, res) => {
-    const id = req.body.id
-    const name = req.body.name
-    const email = req.body.email
-    const comment = req.body.comment
+    const { id, name, email, comment } = req.body
 
-    await Comment.update({
-        name: name,
-        email: email,
-        comment: comment,
-    }, {
+    await Comment.update({ name, email, comment }, {
         where: { id: id }
-    }).then(() => {
-        res.sendStatus(200)
-    }).catch(err => {
-        res.sendStatus(404)
-    })
+    }).then(() => res.sendStatus(200)).catch(() => res.sendStatus(404))
 }
 
 /*========== (POST) Delete comment  ==========*/
 const DELETE = async (req, res) => {
     const id = req.body.id
 
-    await Comment.destroy({ where: { id: id } })
-        .then(() => {
-            res.sendStatus(200)
-        }).catch(err => {
-            res.sendStatus(404)
-        })
+    await Comment.destroy({ where: { id: id } }).then(() => res.sendStatus(200)).catch(() => res.sendStatus(404))
 }
 
 module.exports = {

@@ -4,8 +4,7 @@ const bcryptjs = require('bcryptjs')
 
 /*========== (GET) login  ==========*/
 const login = async (req, res) => {
-    const email = req.body.email
-    const password = req.body.password
+    const { email, password } = req.body
 
     await Admin.findOne({ where: { email: email } })
         .then(user => {
@@ -27,15 +26,12 @@ const login = async (req, res) => {
                 res.send('Este usuário não está cadastrado!')
                 res.sendStatus(400)
             }
-        }).catch(() => {
-        res.sendStatus(404)
-    })
+        }).catch(() => res.sendStatus(404))
 }
 
 /*========== (POST) Create admin  ==========*/
 const INSERT = async (req, res) => {
-    const email = req.body.email
-    const password = req.body.password
+    const { email, password } = req.body
 
     await Admin.findOne({ where: { email: email } })
         .then(user => {
@@ -53,7 +49,6 @@ const INSERT = async (req, res) => {
                     res.send("Erro ao criar usuário: " + err)
                     res.sendStatus(404)
                 })
-
             } else {
                 res.send('Este usuário já existe!')
                 res.sendStatus(400)
@@ -63,8 +58,7 @@ const INSERT = async (req, res) => {
 
 /*========== (POST) Update admin  ==========*/
 const UPDATE = async (req, res) => {
-    const email = req.body.email
-    const password = req.body.password
+    const { email, password } = req.body
 
     await Admin.findOne({ where: { email: email } })
         .then(async user => {
@@ -82,9 +76,7 @@ const UPDATE = async (req, res) => {
                     }).then(() => {
                         res.send('Senha alterada com sucesso!')
                         res.sendStatus(200)
-                    }).catch(err => {
-                        res.sendStatus(404)
-                    })
+                    }).catch(() => res.sendStatus(404))
                 } else {
                     res.send('Email ou senha inválido')
                     res.sendStatus(202)
@@ -93,9 +85,7 @@ const UPDATE = async (req, res) => {
                 res.send('Usuário não encontrado!')
                 res.sendStatus(400)
             }
-        }).catch(err => {
-            res.sendStatus(404)
-        })
+        }).catch(() => res.sendStatus(404))
 }
 
 /*========== (POST) Delete  ==========*/
@@ -107,9 +97,7 @@ const DELETE = async (req, res) => {
     }).then(() => {
         res.send('User deleted')
         res.sendStatus(200)
-    }).catch(err => {
-        res.sendStatus(404)
-    })
+    }).catch(() => res.sendStatus(404))
 }
 
 /*========== (GET) Logout admin  ==========*/

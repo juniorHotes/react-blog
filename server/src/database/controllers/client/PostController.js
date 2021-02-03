@@ -14,9 +14,7 @@ const index = async (req, res) => {
     }).then(post => {
         res.json(post)
         res.sendStatus(200)
-    }).catch(err => {
-        res.sendStatus(404)
-    })
+    }).catch(() => res.sendStatus(404))
 }
 
 const post = async (req, res) => {
@@ -33,9 +31,7 @@ const post = async (req, res) => {
             res.json({ post, comment })
             res.sendStatus(200)
         })
-    }).catch(err => {
-        res.sendStatus(404)
-    })
+    }).catch(() => res.sendStatus(404))
 }
 
 /*========== (GET) Show all posts  ==========*/
@@ -44,9 +40,7 @@ const allPosts = async (req, res) => {
     const limit = 8
     const pageOffset = page * limit
 
-    if (isNaN(page)) {
-        return res.sendStatus(404)
-    }
+    if (isNaN(page)) return res.sendStatus(404)
 
     await Post.findAndCountAll({
         order: [['id', 'DESC']],
@@ -57,9 +51,7 @@ const allPosts = async (req, res) => {
         const pagination = pageOffset + limit >= post.count ? false : true
         res.json({ pagination, post })
         res.sendStatus(200)
-    }).catch(err => {
-        res.sendStatus(404)
-    })
+    }).catch(() => res.sendStatus(404))
 }
 
 /*========== (GET) Post by category  ==========*/
@@ -69,9 +61,7 @@ const category = async (req, res) => {
     const limit = 8
     const pageOffset = page * limit
 
-    if (isNaN(page)) {
-        return res.sendStatus(404)
-    }
+    if (isNaN(page)) return res.sendStatus(404)
 
     await Post.findAndCountAll({
         order: [['id', 'DESC']],
@@ -85,9 +75,7 @@ const category = async (req, res) => {
         const pagination = pageOffset + limit >= post.count ? false : true
         res.json({ pagination, post })
         res.sendStatus(200)
-    }).catch(err => {
-        res.sendStatus(404)
-    })
+    }).catch(() => res.sendStatus(404))
 }
 
 /*========== (GET) Search posts  ==========*/
@@ -97,9 +85,7 @@ const search = async (req, res) => {
     const limit = 8
     const pageOffset = page * limit
 
-    if (isNaN(page)) {
-        return res.sendStatus(404)
-    }
+    if (isNaN(page)) return res.sendStatus(404)
 
     await Post.findAndCountAll({
         where: { title: { [Op.like]: "%" + query + "%" } },
@@ -111,9 +97,7 @@ const search = async (req, res) => {
         const pagination = pageOffset + limit >= post.count ? false : true
         res.json({ pagination, post })
         res.sendStatus(200)
-    }).catch(err => {
-        res.sendStatus(404)
-    })
+    }).catch(() => res.sendStatus(404))
 }
 
 module.exports = {

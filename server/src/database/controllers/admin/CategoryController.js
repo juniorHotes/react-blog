@@ -7,9 +7,7 @@ const index = async (req, res) => {
     const limit = 8
     const pageOffset = page * limit
 
-    if(isNaN(page)) {
-        return res.sendStatus(404)
-    }
+    if (isNaN(page)) return res.sendStatus(404)
 
     await Category.findAndCountAll({
         limit: limit,
@@ -18,26 +16,20 @@ const index = async (req, res) => {
         const pages = pageOffset + limit >= categories.count ? false : true
         res.json({ pages, categories })
         res.sendStatus(200)
-    }).catch(err => {
-        res.sendStatus(404)
-    })
+    }).catch(() => res.sendStatus(404))
 }
 /*========== (GET) Page to edit category  ==========*/
 const editCategory = async (req, res) => {
     const id = req.params.id
 
-    if(isNaN(id)) {
-        return res.sendStatus(404)
-    }
+    if (isNaN(id)) return res.sendStatus(404)
 
     await Category.findOne({
         where: { id: id }
     }).then(category => {
         res.json(category)
         res.sendStatus(200)
-    }).catch(err => {
-        res.sendStatus(404)
-    })
+    }).catch(() => res.sendStatus(404))
 }
 /*========== (POST) Register new category in database ==========*/
 const INSERT = async (req, res) => {
@@ -53,34 +45,21 @@ const INSERT = async (req, res) => {
                 await Category.create({
                     title: category,
                     slug: slug
-                }).then(() => {
-                    res.sendStatus(200)
-                })
-            } else {
-                res.sendStatus(409)
-            }
+                }).then(() => res.sendStatus(200))
+            } else { res.sendStatus(409) }
         })
-    } catch (err) {
-        res.send({ error: err })
-        res.sendStatus(404)
-    }
+    } catch (err) { res.sendStatus(404) }
 }
 /*========== (POST) Update category  ==========*/
 const UPDATE = async (req, res) => {
-    const id = req.body.categoryId
-    const category = req.body.category
+    const { id, category } = req.body
     const slug = Slugify(category, { lower: true })
 
     await Category.update({
         title: category,
         slug: slug
-    }, {
-        where: { id: id }
-    }).then(() => {
-        res.sendStatus(200)
-    }).catch(err => {
-        res.sendStatus(404)
-    })
+    }, { where: { id: id } })
+        .then(() => res.sendStatus(200)).catch(() => res.sendStatus(404))
 }
 /*========== (POST) Delete category  ==========*/
 const DELETE = async (req, res) => {
@@ -91,9 +70,7 @@ const DELETE = async (req, res) => {
     }).then(() => {
         res.send('category deleted')
         res.sendStatus(200)
-    }).catch(err => {
-        res.sendStatus(404)
-    })
+    }).catch(() => res.sendStatus(404))
 }
 
 module.exports = {
