@@ -16,12 +16,14 @@ async function main(data) {
     },
   });
 
+  const to = data.to || "juniorhotes53@gmail.com"
+
   // send mail with defined transport object
   let info = await transporter.sendMail({
     from: `React Blog`,
-    to: "juniorhotes53@gmail.com",
+    to: to,
     subject: data.subject,
-    html: data.html,
+    html: `<style>${styles}</style>${data.html}`,
   });
 
   console.log("Message sent: %s", info.messageId);
@@ -33,3 +35,16 @@ async function main(data) {
 }
 
 module.exports = { main }
+
+const styles = `
+.link {
+  max-width: 120px;
+  display: block;
+  margin-top: 20px;
+  text-decoration: none;
+  padding: 12px;
+  background: #00adef;
+  color: white;
+  text-align: center;
+}
+`
