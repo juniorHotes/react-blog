@@ -7,6 +7,7 @@ connection.authenticate()
     .catch(err => console.log('Database Authenticate error: ' + err))
 
 const AdminController = require('./database/controllers/admin/AdminController')
+const ProfileController = require('./database/controllers/admin/ProfileController')
 const CommentController = require('./database/controllers/client/CommentController')
 const ResponseController = require('./database/controllers/client/ResponseController')
 const PostController = require('./database/controllers/client/PostController')
@@ -34,12 +35,20 @@ routes.post('/admin/update', AdminController.UPDATE)
 routes.post('/admin/delete', AdminController.DELETE)
 //#endregion
 
+//#region ########## ADMIN PROFILE ##########
+routes.get('/admin/profile', ProfileController.index)
+
+routes.post('/admin/profile/insert', ProfileController.INSERT)
+routes.post('/admin/profile/update', ProfileController.UPDATE)
+//#endregion
+
+
 //#region ########## CATEGORY CONTROLLERS ##########
 routes.get('/admin/categories/:page', CategoryController.index)
 routes.get('/admin/category/edit/:id', CategoryController.editCategory)
 
-routes.post('/admin/category/update', CategoryController.UPDATE)
 routes.post('/admin/category/insert', CategoryController.INSERT)
+routes.post('/admin/category/update', CategoryController.UPDATE)
 routes.post('/admin/category/delete', CategoryController.DELETE)
 //#endregion
 
@@ -48,13 +57,13 @@ routes.get('/admin/posts/:page', AdminPostController.index)
 routes.get('/admin/post/new', AdminPostController.newPost)
 routes.get('/admin/post/edit/:id', AdminPostController.editPost)
 
-routes.post('/admin/post/update', AdminPostController.UPDATE)
 routes.post('/admin/post/insert', AdminPostController.INSERT)
+routes.post('/admin/post/update', AdminPostController.UPDATE)
 routes.post('/admin/post/delete', AdminPostController.DELETE)
 //#endregion
 
 //#region ########## POST CONTROLLERS ##########
-routes.get('/', PostController.index)
+routes.get('/home', PostController.index)
 routes.get('/post/:slug', PostController.post)
 routes.get('/posts/:page', PostController.allPosts)
 routes.get('/posts/categoty/:slug/:page', PostController.category)
