@@ -43,6 +43,11 @@ const Comment = connection.define('comments', {
             }
         }
     },
+
+    status_email: {
+        type: Sequelize.TINYINT,
+        allowNull: true,
+    }
 })
 
 /*========= Relationship =========*/
