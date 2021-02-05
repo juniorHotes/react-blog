@@ -42,7 +42,6 @@ routes.post('/admin/profile/insert', ProfileController.INSERT)
 routes.post('/admin/profile/update', ProfileController.UPDATE)
 //#endregion
 
-
 //#region ########## CATEGORY CONTROLLERS ##########
 routes.get('/admin/categories/:page', CategoryController.index)
 routes.get('/admin/category/edit/:id', CategoryController.editCategory)
@@ -71,6 +70,8 @@ routes.get('/posts/search/:page', PostController.search)
 //#endregion
 
 //#region ########## COMMENTS CONTROLLERS ##########
+routes.get('/status-email', CommentController.statusEmail)
+
 routes.post('/comment/insert', CommentController.INSERT)
 routes.post('/comment/update', CommentController.UPDATE)
 routes.post('/comment/delete', CommentController.DELETE)
