@@ -1,6 +1,8 @@
 const Slugify = require('slugify')
 const Post = require('../../migrations/post')
 const Category = require('../../migrations/category')
+const Subscriber = require('../../migrations/Subscriber')
+const SendEmail = require('../SendEmail')
 
 /*========== (GET) Show all posts  ==========*/
 const index = async (req, res) => {
@@ -55,13 +57,25 @@ const INSERT = async (req, res) => {
     const slug = Slugify(title, { lower: true })
 
     try {
-        await Post.findOne({ where: { slug: slug } })
-            .then(async (_post) => {
-                if (_post == undefined) {
-                    await Post.create({ title, slug, body, categoryId })
-                        .then(() => res.sendStatus(200))
-                } else { res.sendStatus(409) }
-            })
+        const postSlug = await Post.findOne({ where: { slug: slug } })
+
+        if (postSlug == undefined) {
+            await Post.create({ title, slug, body, categoryId })
+            const subscriber = await Subscriber.findAll()
+
+            console.log(subscriber)
+
+            const sendSubscribersEmail = {
+                to: subscriber.email,
+                subject: `Publicou uma nova postagem`,
+                html: `<h3>${title}</h3>
+                        <a class="link" href='http://localhost:3333/post/${slug}'>Ver</a>
+                        <a class="link" href='http://localhost:3333/user/subscriber/delete'>Cancelar inscrição</a>`
+            }
+
+            await SendEmail.main(sendSubscribersEmail).then(res.sendStatus(200))
+
+        } else { res.sendStatus(409) }
     } catch (err) { res.sendStatus(404) }
 }
 /*========== (POST) Update post  ==========*/
