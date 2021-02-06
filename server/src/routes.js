@@ -13,6 +13,7 @@ const ResponseController = require('./database/controllers/client/ResponseContro
 const PostController = require('./database/controllers/client/PostController')
 const CategoryController = require('./database/controllers/admin/CategoryController')
 const AdminPostController = require('./database/controllers/admin/AdminPostController')
+const SubscriberController = require('./database/controllers/client/SubscriberController')
 
 const SendEmail = require('./database/controllers/SendEmail')
 
@@ -25,6 +26,9 @@ routes.post('/contact-admin/env', (req, res) => {
                <a class="link" href='http://localhost:3333/'>Ir para o blog</a>`
     }).then(res.sendStatus(200)).catch(res.sendStatus(400))
 })
+
+routes.post('/user/subscriber/insert', SubscriberController.INSERT)
+routes.post('/user/subscriber/delete', SubscriberController.DELETE)
 
 //#region ########## ADMIN CONTROLLERS ##########
 routes.get('/admin/logout', AdminController.logout)
