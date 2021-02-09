@@ -3,6 +3,8 @@ const Post = require('../../migrations/post')
 const Category = require('../../migrations/category')
 const Subscriber = require('../../migrations/Subscriber')
 const SendEmail = require('../SendEmail')
+const config = require('../../../config.json')
+const bcryptjs = require('bcryptjs')
 
 /*========== (GET) Show all posts  ==========*/
 const index = async (req, res) => {
@@ -52,7 +54,7 @@ const editPost = async (req, res) => {
 }
 /*========== (POST) Register new post in database ==========*/
 const INSERT = async (req, res) => {
-    const { title, body, categoryId } = req.body
+    const { title, body, categoryId, sendUsers } = req.body
 
     const slug = Slugify(title, { lower: true })
 
@@ -60,23 +62,36 @@ const INSERT = async (req, res) => {
         const postSlug = await Post.findOne({ where: { slug: slug } })
 
         if (postSlug == undefined) {
-            await Post.create({ title, slug, body, categoryId })
+            const post = await Post.create({ title, slug, body, categoryId })
+
+            if(sendUsers == false) return res.json(post).sendStatus(200)
+
             const subscriber = await Subscriber.findAll()
+            subscriber.map(async item => {
 
-            console.log(subscriber)
+                const salt = bcryptjs.genSaltSync(10)
+                const hashID = bcryptjs.hashSync(String(item.id), salt)
 
-            const sendSubscribersEmail = {
-                to: subscriber.email,
-                subject: `Publicou uma nova postagem`,
-                html: `<h3>${title}</h3>
-                        <a class="link" href='http://localhost:3333/post/${slug}'>Ver</a>
-                        <a class="link" href='http://localhost:3333/user/subscriber/delete'>Cancelar inscrição</a>`
-            }
+                const sendSubscribersEmail = {
+                    to: item.email,
+                    subject: `${config.blog_name} - Fez uma nova postagem`,
+                    html: `<div class="container">
+                                <h1>${config.blog_name}</h1><hr>
+                                <h2>${title}</h2>
+                                <p>Publiquei uma nova postagem no blog com o título, <b>${title}</b>, confira agora.</p>
+                                <div class="container-buttons">
+                                    <a class="link" href='${config.http}/post/${slug}'>Ver postagem</a>
+                                    <a class="link" href='${config.http}/user/unsubscribe/${hashID}/?id=${item.id}'>
+                                    Não quero mais receber E-mails</a>
+                                </div>
+                            </div>`
+                }
 
-            await SendEmail.main(sendSubscribersEmail).then(res.sendStatus(200))
+                await SendEmail.main(sendSubscribersEmail).then(res.sendStatus(200))
+            })
 
         } else { res.sendStatus(409) }
-    } catch (err) { res.sendStatus(404) }
+    } catch (err) { res.json(err).sendStatus(404) }
 }
 /*========== (POST) Update post  ==========*/
 const UPDATE = async (req, res) => {
