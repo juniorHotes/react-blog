@@ -1,4 +1,5 @@
-const nodemailer = require("nodemailer");
+const nodemailer = require("nodemailer")
+const config = require('../../config.json')
 
 async function main(data) {
   // Generate test SMTP service account from ethereal.email
@@ -20,7 +21,7 @@ async function main(data) {
 
   // send mail with defined transport object
   let info = await transporter.sendMail({
-    from: `React Blog`,
+    from: config.blog_name,
     to: to,
     subject: data.subject,
     html: `<style>${styles}</style>${data.html}`,
@@ -37,14 +38,19 @@ async function main(data) {
 module.exports = { main }
 
 const styles = `
+.container h1 {
+  text-align: center
+}
+.container-buttons {
+  margin-top: 40px;
+  text-align: center
+}
 .link {
-  max-width: 120px;
-  display: block;
-  margin-top: 20px;
   text-decoration: none;
   padding: 12px;
   background: #00adef;
   color: white;
   text-align: center;
+  border: none
 }
 `
