@@ -1,6 +1,7 @@
 const Comment = require('../../migrations/Comment')
 const Post = require('../../migrations/post')
 const SendEmail = require('../SendEmail')
+const config = require('../../../config.json')
 
 /*========== (GET) Status Email  ==========*/
 const statusEmail = async (req, res) => {
@@ -10,7 +11,7 @@ const statusEmail = async (req, res) => {
     const status_email = status == "subscribe" ? true : false
 
     await Comment.update({ status_email }, { where: { id: id } })
-    .then(res.sendStatus(200)).catch(res.sendStatus(400))
+        .then(res.sendStatus(200)).catch(res.sendStatus(400))
 }
 /*========== (POST) Insert comment  ==========*/
 const INSERT = async (req, res) => {
@@ -22,9 +23,14 @@ const INSERT = async (req, res) => {
 
         SendEmail.main({
             subject: `${name} Fez um comentário - ${email}`,
-            html: `<p style="font-size:16px"><b>${name}</b> fez um comentário na postagem <b>${post.title}</b></p>
-            <p>${comment}</p>
-            <a class="link" href='http://localhost:3333/post/${post.slug}'>Ver comentário</a>`
+            html: `<div class="container">
+                        <h1>${config.blog_name}</h1><hr>
+                        <p style="font-size:16px"><b>${name}</b> fez um comentário na postagem <b>${post.title}</b></p>
+                        <p>${comment}</p>
+                        <div class="container-buttons">
+                            <a class="link" href='${config.http}/post/${post.slug}'>Ver comentário</a>
+                        </div>
+                    </div>`
         }).then(res.sendStatus(200)).catch(res.sendStatus(400))
     } catch (err) { return res.status(404) }
 }

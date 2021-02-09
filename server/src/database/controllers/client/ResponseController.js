@@ -2,6 +2,7 @@ const Response = require('../../migrations/Response')
 const Comment = require('../../migrations/Comment')
 const SendEmail = require('../SendEmail')
 const Post = require('../../migrations/post')
+const config = require('../../../config.json')
 
 /*========== (POST) Insert comment  ==========*/
 const INSERT = async (req, res) => {
@@ -15,9 +16,10 @@ const INSERT = async (req, res) => {
         const sendUserEmail = {
             to: _comment.email,
             subject: `${name} Respondeu ao seu comentário - ${email}`,
-            html: `<p style="font-size:16px"><b>${name}</b> 
-                        Respondeu ao seu comentário na postagem 
-                        <b>${post.title}</b></p>
+            html: `<div class="container">
+                        <h1>${config.blog_name}</h1><hr>
+                        <p style="font-size:16px"><b>${name}</b> 
+                        Respondeu ao seu comentário na postagem <b>${post.title}</b></p>
                         <ul>
                             <li><p><b>${_comment.name}</b> Seu comentário</p></li>
                             <p>${_comment.comment}</p>
@@ -26,14 +28,19 @@ const INSERT = async (req, res) => {
                                 <p>${comment}</p>
                             </ul>
                         </ul>
-                        <a class="link" href='http://localhost:3333/post/${post.slug}'>Responder</a>
-                        <a class="link" href='http://localhost:3333/status-email/?status=unsubscribe&id=${_comment.id}'>
-                        Não receber mais Emails</a>`
+                        <div class="container-buttons">
+                            <a class="link" href='${config.http}/post/${post.slug}'>Responder</a>
+                            <a class="link" href='${config.http}/status-email/?status=unsubscribe&id=${_comment.id}'>
+                            Não receber mais Emails</a>
+                        </div>
+                    </div>`
         }
 
         const sendAdminEmail = {
             subject: `${name} - Respondeu a um comentário - ${email}`,
-            html: `<p style="font-size:16px"><b>${name}</b> - 
+            html: `<div class="container">
+                        <h1>${config.blog_name}</h1><hr>
+                        <p style="font-size:16px"><b>${name}</b> - 
                         Respondeu ao comentário de <b>${_comment.name}</b> na postagem 
                         <b>${post.title}</b></p>
                         <ul>
@@ -44,7 +51,10 @@ const INSERT = async (req, res) => {
                                 <p>${comment}</p>
                             </ul>
                         </ul>
-                        <a class="link" href='http://localhost:3333/post/${post.slug}'>Ver todos os comentários</a>`
+                        <div class="container-buttons">
+                            <a class="link" href='${config.http}/post/${post.slug}'>Ver todos os comentários</a>
+                        </div>
+                    </div>`
         }
 
         if (_comment.status_email == false) {

@@ -1,6 +1,7 @@
 const express = require('express')
 const routes = express.Router()
 const connection = require('./database/connection')
+const config = require('./config.json')
 
 connection.authenticate()
     .then(() => console.log('Database Authenticate: OK!'))
@@ -22,13 +23,18 @@ routes.post('/contact-admin/env', (req, res) => {
 
     SendEmail.main({
         subject: `${name} Entrou em contato - ${email}`,
-        html: `<p>${msg}</p> 
-               <a class="link" href='http://localhost:3333/'>Ir para o blog</a>`
+        html: `<div class="container">
+                    <h1>${config.blog_name}</h1><hr>
+                    <p>${msg}</p> 
+                    <div class="container-buttons">
+                        <a class="link" href='${config.http}/admin/login'>Ir para o blog</a>
+                    </div>
+               </div>`
     }).then(res.sendStatus(200)).catch(res.sendStatus(400))
 })
 
 routes.post('/user/subscriber/insert', SubscriberController.INSERT)
-routes.post('/user/subscriber/delete', SubscriberController.DELETE)
+routes.get('/user/unsubscribe/:hash', SubscriberController.DELETE)
 
 //#region ########## ADMIN CONTROLLERS ##########
 routes.get('/admin/logout', AdminController.logout)
