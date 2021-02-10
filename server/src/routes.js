@@ -33,16 +33,14 @@ routes.post('/contact-admin/env', (req, res) => {
     }).then(res.sendStatus(200)).catch(res.sendStatus(400))
 })
 
-routes.post('/user/subscriber/insert', SubscriberController.INSERT)
 routes.get('/user/unsubscribe/:hash', SubscriberController.DELETE)
+routes.post('/user/subscriber/insert', SubscriberController.INSERT)
 
 //#region ########## ADMIN CONTROLLERS ##########
 routes.get('/admin/logout', AdminController.logout)
 
 routes.post('/admin/login', AdminController.login)
-routes.post('/admin/insert', AdminController.INSERT)
 routes.post('/admin/update', AdminController.UPDATE)
-routes.post('/admin/delete', AdminController.DELETE)
 //#endregion
 
 //#region ########## ADMIN PROFILE ##########
