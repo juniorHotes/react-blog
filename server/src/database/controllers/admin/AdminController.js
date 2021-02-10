@@ -6,7 +6,7 @@ const bcryptjs = require('bcryptjs')
 const login = async (req, res) => {
     const { email, password } = req.body
 
-    await Admin.findOne({ where: { email: email } })
+    await Admin.findOne({ where: { email } })
         .then(user => {
             if (user != undefined) {
                 const correct = bcryptjs.compareSync(password, user.password)

@@ -20,18 +20,14 @@ const index = async (req, res) => {
         offset: pageOffset
     }).then(post => {
         const pagination = pageOffset + limit >= post.count ? false : true
-        res.json({ pagination, post })
-        res.sendStatus(200)
-    }).catch(() => res.sendStatus(404))
+        res.json({ pagination, post }).sendStatus(200)
+    }).catch(err => res.json(err).sendStatus(404))
 }
 /*========== (GET) New post registration page  ==========*/
 const newPost = async (req, res) => {
 
     await Category.findAll()
-        .then(categories => {
-            res.json(categories)
-            res.sendStatus(200)
-        }).catch(() => res.sendStatus(404))
+        .then(categories => res.json(categories).sendStatus(200)).catch(err => res.json(err).sendStatus(404))
 }
 /*========== (GET) Page to edit post  ==========*/
 const editPost = async (req, res) => {
@@ -45,12 +41,9 @@ const editPost = async (req, res) => {
             include: [{ model: Category }],
         }).then(async post => {
             await Category.findAll()
-                .then(categories => {
-                    res.json({ post, categories })
-                    res.sendStatus(200)
-                })
+                .then(categories => res.json({ post, categories }).sendStatus(200))
         })
-    } catch (err) { res.sendStatus(404) }
+    } catch (err) { res.json(err).sendStatus(404) }
 }
 /*========== (POST) Register new post in database ==========*/
 const INSERT = async (req, res) => {
@@ -64,7 +57,7 @@ const INSERT = async (req, res) => {
         if (postSlug == undefined) {
             const post = await Post.create({ title, slug, body, categoryId })
 
-            if(sendUsers == false) return res.json(post).sendStatus(200)
+            if (sendUsers == false) return res.json(post).sendStatus(200)
 
             const subscriber = await Subscriber.findAll()
             subscriber.map(async item => {
@@ -99,17 +92,15 @@ const UPDATE = async (req, res) => {
 
     const slug = Slugify(title, { lower: true })
 
-    await Post.update({ title, slug, body, categoryId }, {
-        where: { id: id }
-    }).then(() => res.sendStatus(200)).catch(() => res.sendStatus(404))
+    await Post.update({ title, slug, body, categoryId }, { where: { id: id } })
+        .then(res.json({ "msg": "Postagem alterada!" }).sendStatus(200)).catch(err => res.json(err).sendStatus(404))
 }
 /*========== (POST) Delete post  ==========*/
 const DELETE = async (req, res) => {
     const id = req.body.postId
 
-    await Post.destroy({
-        where: { id: id }
-    }).then(() => res.sendStatus(200)).catch(() => res.sendStatus(404))
+    await Post.destroy({where: { id }})
+        .then(res.json({ "msg": "Postagem deletada!" }).sendStatus(200)).catch(err => res.json(err).sendStatus(404))
 }
 
 module.exports = {
