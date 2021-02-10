@@ -25,59 +25,37 @@ const login = async (req, res) => {
             }
         }).catch(err => res.json(err).sendStatus(404))
 }
-
-/*========== (POST) Create admin  ==========*/
-const INSERT = async (req, res) => {
-    const { email, password } = req.body
-
-    try {
-        const existsUser = await Admin.findOne({ where: { email: email } })
-
-        if (existsUser == undefined) {
-            const salt = bcryptjs.genSaltSync(10)
-            const hash = bcryptjs.hashSync(password, salt)
-
-            await Admin.create({ email: email, password: hash })
-                .then(res.json({ "msg": "Usuário criado!" }).sendStatus(200))
-        } else {
-            return res.json({ "msg": "Este usuário já existe!" }).sendStatus(409)
-        }
-    } catch (err) { res.json(err).sendStatus(404) }
-}
-
 /*========== (POST) Update admin  ==========*/
 const UPDATE = async (req, res) => {
-    const { email, password } = req.body
+    const { email, password, new_password } = req.body
 
     try {
-        const existsUser = await Admin.findOne({ where: { email: email } })
-        if (existsUser != undefined) {
-            const correct = bcryptjs.compareSync(password, existsUser.password)
+        const pass = await Admin.findOne({ where: { id: 1 } })
+        const correct = bcryptjs.compareSync(password, pass.password)
 
+        if (email == undefined) {
+            // Change password
             if (correct) {
                 const salt = bcryptjs.genSaltSync(10)
-                const hash = bcryptjs.hashSync(password, salt)
+                const hash = bcryptjs.hashSync(new_password, salt)
 
-                await Admin.update({ password: hash }, { where: { email: email } })
+                await Admin.update({ password: hash }, { where: { id: 1 } })
                     .then(res.json({ "msg": "Senha alterada com sucesso!" }).sendStatus(200))
             } else {
-                return res.json({ "msg": "Email ou senha inválido!" }).sendStatus(202)
+                return res.json({ "msg": "Senha atual incorreta!" }).sendStatus(202)
             }
-        } else {
-            return res.json({ "msg": "Usuário não encontrado!" }).sendStatus(400)
+        }
+        if (new_password == undefined) {
+            // Change e-mail
+            if (correct) {
+                await Admin.update({ email: email }, { where: { id: 1 } })
+                    .then(res.json({ "msg": "E-mail alterada com sucesso!" }).sendStatus(200))
+            } else {
+                return res.json({ "msg": "Senha incorreta!" }).sendStatus(202)
+            }
         }
     } catch (err) { res.json(err).sendStatus(404) }
-
 }
-
-/*========== (POST) Delete  ==========*/
-const DELETE = async (req, res) => {
-    const email = req.body.email
-
-    await Admin.destroy({ where: { email: email } })
-        .then(res.json({ "msg": "Administrador deletado!" }).sendStatus(200)).catch(err => res.json(err).sendStatus(404))
-}
-
 /*========== (GET) Logout admin  ==========*/
 const logout = async (req, res) => {
     req.session.user = undefined
@@ -86,8 +64,6 @@ const logout = async (req, res) => {
 
 module.exports = {
     login,
-    INSERT,
     UPDATE,
-    DELETE,
     logout
 }
