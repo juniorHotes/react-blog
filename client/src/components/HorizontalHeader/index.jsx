@@ -17,7 +17,7 @@ export default function HorizontalHeader(props) {
                         <p>Olá! Meu nome é João Domingos mais também conhecido como Junior Hotes nas redes socias, meu primeiro sistema operacional que utilizei foi Windows 95 quando tinha apenas 13 anos</p>
                     </AboutContent>
                 </ContenProfile>
-            || <h1>Página do Administrador</h1>}
+            || <h1>Administrador</h1>}
 
             <ListOptions>
                 {props.listOptions}
