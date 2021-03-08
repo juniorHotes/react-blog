@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
+export const Container = styled.header`
     width: 20rem;
     min-height: 100vh;
     padding: 20px;
@@ -30,6 +30,37 @@ export const AboutContent = styled.div`
     border-bottom: 1px solid white;
 `
 export const ListOptions = styled.div`
-    text-decoration: none;
-    color: white;
+    margin: 2rem 0;
+
+    & ul {
+        padding: 0;
+    }
+
+    & li {
+        list-style: none;
+        background-color: #17202A;
+        margin-top: .5rem;
+        border-radius: 0 50px 50px 0;
+    }
+
+    & a {
+        display: block;
+        padding: .7rem .4rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-decoration: none;
+        color: white;
+    }
+
+    & a:hover {
+        background-color: white;
+        color: #17202A;
+        border-radius: 0 50px 50px 0;
+        transition: .5s;
+    }
+
+    & a.active {
+        background-color: white;
+        color: #17202A;
+    }
 `
