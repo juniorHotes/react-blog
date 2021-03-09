@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react'
+import api from '../../../services/api'
 import HorizontalHeader from '../../../components/HorizontalHeader'
 import AdminOptions from '../../../components/AdminOptions'
 
 export default function Profile() {
 
-    useEffect(() => {
-
+    useEffect( async () => {
+        const { data } = await api.get('/admin/profile')
+        console.log(data)
     }, [])
 
     return (
