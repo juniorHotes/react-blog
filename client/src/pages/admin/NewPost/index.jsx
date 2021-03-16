@@ -16,6 +16,7 @@ export default function NewPost() {
                 <AdminOptions />
             } />
             <div className='container'>
+                <h1>Nova Postagem</h1>
             </div>
         </>
     )
