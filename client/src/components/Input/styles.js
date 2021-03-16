@@ -1,6 +1,7 @@
 import Styled from 'styled-components'
 
 export const Container = Styled.div`
+    width: ${props => props.size || '100%'};
     display: block;
     margin: .5rem;
 ` 
