@@ -1,6 +1,8 @@
 import Styled, { css } from 'styled-components'
 
 export const ButtonElem = Styled.button`
+    display: inline-flex;
+    text-decoration: none;
     background: transparent;
     border-radius: 8px;
     border: 2px solid #1a73e8;
@@ -8,6 +10,7 @@ export const ButtonElem = Styled.button`
     margin: .5rem;
     padding: .5rem 1rem;
     cursor: pointer;
+    font-size: ${props => props.size || '1rem'};
     font-weight: bold;
     transition: .5s;
 
@@ -37,5 +40,4 @@ export const ButtonElem = Styled.button`
         border-color: #E74C3C;
         color: white;
     `}
-
-` 
+`
