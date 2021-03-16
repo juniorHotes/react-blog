@@ -21,4 +21,18 @@ export const GlobalStyle = createGlobalStyle`
         margin: 16px;
         padding: 8px;
     }
+
+    & table {
+        width: 100%;
+    }
+
+    & table th {
+       padding: .5rem;
+       background-color: #c9c9c9;
+       text-align: start;
+    }
+    & table td {
+       padding: .5rem;
+       border: 1px solid #c9c9c9;
+    }
 `
