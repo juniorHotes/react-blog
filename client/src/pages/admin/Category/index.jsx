@@ -6,21 +6,28 @@ import VerticalHeader from '../../../components/VerticalHeader'
 import AdminOptions from '../../../components/AdminOptions'
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
+import PageNavegation from '../../../components/PageNavegation'
 
 import IconEdit from '../../../assets/icons/edit.svg'
 import IconDelete from '../../../assets/icons/delete.svg'
 
-export default function Category(props) {
+export default function Category({ location }) {
+    const baseURL = location.pathname.slice(0, location.pathname.length -1)
+
     const dateFormat = useDateFormat
     const [categories, setCategories] = useState([])
     const [newCategory, setNewCategory] = useState('')
     const [reload, setReload] = useState(false)
 
+    const [page, setPage] = useState(1)
+    const [count, setCount] = useState()
 
     useEffect(async () => {
-        const { data } = await api.get(props.location.pathname)
+        const { data } = await api.get(baseURL + page)
         setCategories(data.categories.rows)
-    }, [reload])
+
+        setCount(Math.round(data.categories.count / 8))
+    }, [reload, page])
 
     async function handleNewCategory(e) {
         e.preventDefault()
@@ -77,8 +84,9 @@ export default function Category(props) {
                             )
                         })}
                     </tbody>
-                    <tfoot></tfoot>
                 </table>
+
+                <PageNavegation url={baseURL} count={count} set={(p) => setPage(p)}/>
             </div>
         </>
     )
