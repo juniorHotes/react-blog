@@ -14,11 +14,13 @@ export default function Category(props) {
     const dateFormat = useDateFormat
     const [categories, setCategories] = useState([])
     const [newCategory, setNewCategory] = useState('')
+    const [reload, setReload] = useState(false)
+
 
     useEffect(async () => {
         const { data } = await api.get(props.location.pathname)
         setCategories(data.categories.rows)
-    }, [])
+    }, [reload])
 
     async function handleNewCategory(e) {
         e.preventDefault()
@@ -26,6 +28,8 @@ export default function Category(props) {
         const { data } = await api.post('/admin/category/insert', { category: newCategory.trim() })
 
         data.msg ? alert(data.msg) : alert("Categoria cadastrada com sucesso!")
+
+        setReload(!reload)
     }
 
     return (
