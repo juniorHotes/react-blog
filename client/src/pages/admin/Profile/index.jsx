@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../../services/api'
-import HorizontalHeader from '../../../components/HorizontalHeader'
+import VerticalHeader from '../../../components/VerticalHeader'
 import AdminOptions from '../../../components/AdminOptions'
 
 import { ProfileContainer, ImgContainer, Img, Email, Textarea} from './styles'
@@ -20,7 +20,7 @@ export default function Profile() {
 
     return (
         <>
-            <HorizontalHeader listOptions={
+            <VerticalHeader listOptions={
                 <AdminOptions />
             } />
             <div className='container'>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import useDateFormat from '../../../hooks/useDateFormat'
 import api from '../../../services/api'
 
-import HorizontalHeader from '../../../components/HorizontalHeader'
+import VerticalHeader from '../../../components/VerticalHeader'
 import AdminOptions from '../../../components/AdminOptions'
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
@@ -34,7 +34,7 @@ export default function Category(props) {
 
     return (
         <>
-            <HorizontalHeader listOptions={
+            <VerticalHeader listOptions={
                 <AdminOptions />
             } />
 
@@ -48,7 +48,7 @@ export default function Category(props) {
                         value={newCategory}
                         onChange={e => setNewCategory(e.target.value)}
                     />
-                    <Button primary>Salvar</Button>
+                    <Button primary size='1.4rem' >Salvar</Button>
                 </form>
 
                 <table>
@@ -70,8 +70,8 @@ export default function Category(props) {
                                     <td>{dateFormat(cat.createdAt)}</td>
                                     <td>{dateFormat(cat.updatedAt)}</td>
                                     <td>
-                                        <Button><img src={IconEdit} /></Button>
-                                        <Button danger><img src={IconDelete} /></Button>
+                                        <Button secondary_tr><img src={IconEdit} /></Button>
+                                        <Button danger_tr><img src={IconDelete} /></Button>
                                     </td>
                                 </tr>
                             )

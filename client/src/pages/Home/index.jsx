@@ -1,10 +1,10 @@
 import React from 'react'
-import HorizontalHeader from '../../components/HorizontalHeader'
+import VerticalHeader from '../../components/VerticalHeader'
 
 export default function Home(){
     return (
         <>
-        <HorizontalHeader showProfile />
+        <VerticalHeader showProfile />
         </>
     )
 }
