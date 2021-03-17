@@ -1,5 +1,9 @@
 import { createGlobalStyle } from 'styled-components'
 
+export const defaultTheme = {
+    bg_header_color: '#212F3C'
+}
+
 export const GlobalStyle = createGlobalStyle`
     & * {
         margin: 0;
@@ -26,11 +30,22 @@ export const GlobalStyle = createGlobalStyle`
         width: 100%;
     }
 
-    & table th {
+    & table thead tr th {
        padding: .5rem;
-       background-color: #c9c9c9;
+       background-color: ${defaultTheme.bg_header_color};
        text-align: start;
+       color: white;
     }
+
+    & table thead tr th:first-child {
+        width: 1rem;
+        min-width: 1rem;
+     }
+
+    & table thead tr th:last-child {
+        width: 11rem;
+     }
+ 
     & table td {
        padding: .5rem;
        border: 1px solid #c9c9c9;
