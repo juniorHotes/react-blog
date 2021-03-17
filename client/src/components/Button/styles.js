@@ -3,10 +3,11 @@ import Styled, { css } from 'styled-components'
 export const ButtonElem = Styled.button`
     display: inline-flex;
     text-decoration: none;
-    background: transparent;
+    background-color: transparent;
     border-radius: 8px;
-    border: 2px solid #1a73e8;
-    color: #1a73e8;
+    border: 3px solid transparent;
+    color: #666;
+    text-align: center;
     margin: .5rem;
     padding: .5rem 1rem;
     cursor: pointer;
@@ -19,25 +20,47 @@ export const ButtonElem = Styled.button`
     }
 
     ${props => props.primary && css`
-        background: #1a73e8;
+        background-color: #1a73e8;
+        border-color: #1a73e8;
         color: white;
     `}
 
+    ${props => props.primary_tr && css`
+        border-color: #1a73e8;
+        color: #1a73e8;
+    `}
+
     ${props => props.secondary && css`
-        background: #2ECC71;
+        background-color: #2ECC71;
         border-color: #2ECC71;
         color: white;
     `}
 
+    ${props => props.secondary_tr && css`
+        border-color: #2ECC71;
+        color: #2ECC71;
+    `}
+
+
     ${props => props.warn && css`
-        background: #F39C12;
+        background-color: #F39C12;
         border-color: #F39C12;
         color: white;
     `}
 
+    ${props => props.warn_tr && css`
+        border-color: #F39C12;
+        color: #F39C12;
+    `}
+
     ${props => props.danger && css`
-        background: #E74C3C;
+        background-color: #E74C3C;
         border-color: #E74C3C;
         color: white;
+    `}
+
+    ${props => props.danger_tr && css`
+        border-color: #E74C3C;
+        color: #E74C3C;
     `}
 `
