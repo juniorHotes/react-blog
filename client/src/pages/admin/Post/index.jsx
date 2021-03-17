@@ -3,33 +3,34 @@ import useDateFormat from '../../../hooks/useDateFormat'
 import api from '../../../services/api'
 import { Link } from 'react-router-dom'
 
-import HorizontalHeader from '../../../components/HorizontalHeader'
+import VerticalHeader from '../../../components/VerticalHeader'
 import AdminOptions from '../../../components/AdminOptions'
 import Button from '../../../components/Button'
+import PageNavegation from '../../../components/PageNavegation'
 
 import IconEdit from '../../../assets/icons/edit.svg'
 import IconDelete from '../../../assets/icons/delete.svg'
 
 export default function Post({ location }) {
+    const baseURL = location.pathname.slice(0, location.pathname.length -1)
+
     const dateFormat = useDateFormat
+
     const [posts, setPosts] = useState([])
-    const [pagination, setPagination] = useState(false)
+
     const [page, setPage] = useState(1)
     const [count, setCount] = useState()
 
     useEffect(async () => {
-        const { data } = await api.get(`/admin/posts/${page}`)
+        const { data } = await api.get(baseURL + page)
         setPosts(data.post.rows)
 
-        const count = Math.round(data.post.count / 8)
-        console.log(count)
-        setCount(count)
-        setPagination(data.pagination)
+        setCount(Math.round(data.post.count / 8))
     }, [page])
 
     return (
         <>
-            <HorizontalHeader listOptions={
+            <VerticalHeader listOptions={
                 <AdminOptions />
             } />
 
@@ -37,8 +38,7 @@ export default function Post({ location }) {
                 <h1>Postagens</h1>
                 <hr />
 
-                <Button as={Link} to='/admin/post/new' primary >Nova Postagem</Button>
-
+                <Button as={Link} to='/admin/post/new' primary size='1.4rem'>Nova Postagem</Button>
                 <table>
                     <thead>
                         <tr>
@@ -60,8 +60,8 @@ export default function Post({ location }) {
                                     <td>{dateFormat(post.updatedAt)}</td>
                                     <td>{post.category.title}</td>
                                     <td>
-                                        <Button><img src={IconEdit} /></Button>
-                                        <Button danger><img src={IconDelete} /></Button>
+                                        <Button secondary_tr><img src={IconEdit} /></Button>
+                                        <Button danger_tr><img src={IconDelete} /></Button>
                                     </td>
                                 </tr>
                             )
@@ -70,23 +70,8 @@ export default function Post({ location }) {
                     <tfoot>
                     </tfoot>
                 </table>
-                <div>
-                    <Button as={Link} to={`/admin/posts/1`} onClick={() => setPage(1)}>Primeira</Button>
-
-                    {[...Array(count)].map((_, idx) => {
-                        idx++
-                        return (
-                            <Button as={Link}
-                                key={idx}
-                                to={`/admin/posts/${idx}`}
-                                onClick={() => setPage(idx)}
-                            >{idx}</Button>
-                        )
-                    })}
-
-                    <Button as={Link} to={`/admin/posts/${count}`} onClick={() => setPage(count)}>Última</Button>
-
-                </div>
+                
+                <PageNavegation url={baseURL} count={count} set={(p) => setPage(p)}/>
             </div>
         </>
     )
