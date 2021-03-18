@@ -5,6 +5,11 @@ export const Container = styled.header`
     min-height: 100vh;
     padding: 20px;
     background-color: #212F3C;
+    scroll-behavior: auto;
+    overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
     
     & h1 {
         color: ${props => props.theme.color.title_header_color};
