@@ -5,7 +5,10 @@ export const Container = styled.header`
     min-height: 100vh;
     padding: 20px;
     background-color: #212F3C;
-    color: white;
+    
+    & h1 {
+        color: ${props => props.theme.color.title_header_color};
+    }
 `
 export const ContenProfile = styled.div`
     margin-top: 20px;
