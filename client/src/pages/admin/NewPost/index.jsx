@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import api from '../../../services/api'
-import VerticalHeader from '../../../components/VerticalHeader'
+import VerticalNav from '../../../components/VerticalNav'
 import AdminOptions from '../../../components/AdminOptions'
 
 export default function NewPost() {
@@ -12,7 +12,7 @@ export default function NewPost() {
 
     return (
         <>
-            <VerticalHeader listOptions={
+            <VerticalNav listOptions={
                 <AdminOptions />
             } />
             <div className='container'>
