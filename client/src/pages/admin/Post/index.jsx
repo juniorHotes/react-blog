@@ -3,7 +3,8 @@ import useDateFormat from '../../../hooks/useDateFormat'
 import api from '../../../services/api'
 import { Link } from 'react-router-dom'
 
-import VerticalHeader from '../../../components/VerticalHeader'
+import VerticalNav from '../../../components/VerticalNav'
+import WrapperAside from '../../../components/WrapperAside'
 import AdminOptions from '../../../components/AdminOptions'
 import Button from '../../../components/Button'
 import PageNavegation from '../../../components/PageNavegation'
@@ -30,15 +31,14 @@ export default function Post({ location }) {
 
     return (
         <>
-            <VerticalHeader listOptions={
+            <VerticalNav listOptions={
                 <AdminOptions />
             } />
 
-            <div className='container'>
-                <h1>Postagens</h1>
-                <hr />
-
-                <Button as={Link} to='/admin/post/new' primary size='1.4rem'>Nova Postagem</Button>
+            <WrapperAside title='Postagens' 
+                element={<Button as={Link} to='/admin/post/new' primary size='1.4rem'>Nova Postagem</Button>}
+            >
+                
                 <table>
                     <thead>
                         <tr>
@@ -67,12 +67,10 @@ export default function Post({ location }) {
                             )
                         })}
                     </tbody>
-                    <tfoot>
-                    </tfoot>
                 </table>
                 
                 <PageNavegation url={baseURL} count={count} set={(p) => setPage(p)}/>
-            </div>
+            </WrapperAside>
         </>
     )
 }

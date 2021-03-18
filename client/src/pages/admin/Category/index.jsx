@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import useDateFormat from '../../../hooks/useDateFormat'
 import api from '../../../services/api'
+import { Link } from 'react-router-dom'
 
-import VerticalHeader from '../../../components/VerticalHeader'
+import VerticalNav from '../../../components/VerticalNav'
+import WrapperAside from '../../../components/WrapperAside'
 import AdminOptions from '../../../components/AdminOptions'
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
@@ -41,14 +43,13 @@ export default function Category({ location }) {
 
     return (
         <>
-            <VerticalHeader listOptions={
+            <VerticalNav listOptions={
                 <AdminOptions />
             } />
 
-            <div className='container'>
-                <h1>Categorias</h1>
-                <hr />
-
+            <WrapperAside title='Categorias'
+                element={<Button as={Link} to='/admin/post/new' primary size='1.4rem'>Nova Categoria</Button>}
+            >
                 <form onSubmit={handleNewCategory}>
                     <Input label="Nova categoria" type="text" placeholder='Nome da categoria'
                         name="category"
@@ -87,7 +88,7 @@ export default function Category({ location }) {
                 </table>
 
                 <PageNavegation url={baseURL} count={count} set={(p) => setPage(p)}/>
-            </div>
+            </WrapperAside>
         </>
     )
 }

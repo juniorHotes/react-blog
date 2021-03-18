@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import api from '../../../services/api'
-import VerticalHeader from '../../../components/VerticalHeader'
+import VerticalNav from '../../../components/VerticalNav'
 import AdminOptions from '../../../components/AdminOptions'
+import WrapperAside from '../../../components/WrapperAside'
 
 import { ProfileContainer, ImgContainer, Img, Email, Textarea} from './styles'
 
@@ -20,10 +21,10 @@ export default function Profile() {
 
     return (
         <>
-            <VerticalHeader listOptions={
+            <VerticalNav listOptions={
                 <AdminOptions />
             } />
-            <div className='container'>
+            <WrapperAside title='Perfil'>
 
                 <ProfileContainer>
                     <ImgContainer>
@@ -45,7 +46,7 @@ export default function Profile() {
                     <Input label="Twitter" type="url" name="twitter" placeholder='URL' size='50%' />
                 </div>
 
-            </div>
+            </WrapperAside>
         </>
     )
 }
