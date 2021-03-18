@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import useDateFormat from '../../../hooks/useDateFormat'
 import api from '../../../services/api'
-import { Link } from 'react-router-dom'
 
+import Dialog from '../../../components/Dialog'
 import VerticalNav from '../../../components/VerticalNav'
 import WrapperAside from '../../../components/WrapperAside'
 import AdminOptions from '../../../components/AdminOptions'
@@ -43,12 +43,13 @@ export default function Category({ location }) {
 
     return (
         <>
+            <Dialog />
             <VerticalNav listOptions={
                 <AdminOptions />
             } />
 
             <WrapperAside title='Categorias'
-                element={<Button as={Link} to='/admin/post/new' primary size='1.4rem'>Nova Categoria</Button>}
+                element={<Button primary size='1.4rem'>Nova Categoria</Button>}
             >
                 <form onSubmit={handleNewCategory}>
                     <Input label="Nova categoria" type="text" placeholder='Nome da categoria'
