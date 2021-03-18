@@ -4,7 +4,7 @@ export const Wrapper = Styled.aside`
     margin: 16px 16px 16px 21rem;
     padding: 8px;
 `
-export const Header = Styled.div`
+export const Header = Styled.header`
     padding: 0 0 1.5rem 0;
     margin-bottom: 1rem;
     display: flex;
