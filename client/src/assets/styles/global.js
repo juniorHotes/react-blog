@@ -11,19 +11,13 @@ export default createGlobalStyle`
     }
 
     body {
+        font-family: 'Poppins', sans-serif;
         background-color: ${props => props.theme.color.bg_section_color};
     }
 
     #root {
-        max-width: 1600px;
         margin: 0 auto;
-        display: grid;
-        grid-template-columns: 20rem 2fr;
-    }
-
-    .container {
-        margin: 16px;
-        padding: 8px;
+        display: flow-root;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -32,13 +26,19 @@ export default createGlobalStyle`
 
     table {
         width: 100%;
+        margin: 2rem 0;
+        border-collapse: collapse;
     }
 
     table thead tr th {
-       padding: .5rem;
-       background-color: white;
+       font-size: 1.2rem;
+       padding: .8rem .4rem;
        text-align: start;
        color: ${props => props.theme.color.global_title_color}
+    }
+
+    table thead tr {
+        box-shadow: 1px 2px 5px rgba(0, 0, 0, .2);
     }
 
     table thead tr th:first-child {
@@ -50,9 +50,12 @@ export default createGlobalStyle`
         width: 11rem;
      }
  
-    table td {
-       padding: .5rem;
-       border: 1px solid #c9c9c9;
+    table tbody tr {
+       box-shadow: 1px 2px 5px rgba(0, 0, 0, .2);
        color: ${props => props.theme.color.global_text_color}
     }
+
+    table tbody td {
+        padding: .4rem;
+     }
 `
