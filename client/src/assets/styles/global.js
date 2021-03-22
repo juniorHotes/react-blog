@@ -25,6 +25,20 @@ export default createGlobalStyle`
         color: ${props => props.theme.color.global_title_color}
     }
 
+    /* SCROLL BAR */
+    ::-webkit-scrollbar {
+        width: 12px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background-color: #c9c9c9;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: ${props => props.theme.color.global_secundary_color};;
+        border-radius: 2px;
+    }
+
     table {
         width: 100%;
         margin: 2rem 0;
