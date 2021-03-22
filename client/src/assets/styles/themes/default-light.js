@@ -8,6 +8,7 @@ export default {
         // GLOBAL TEXT COLOR
         global_title_color: '#17202A',
         global_text_color: '#212F3C',
+        global_subtitle_color: '#888',
         // HEADER COLOR
         bg_header_color: '#212F3C',
         bg_header_button_color: '#17202A',
