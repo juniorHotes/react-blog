@@ -4,19 +4,22 @@ import VerticalNav from '../../../components/VerticalNav'
 import AdminOptions from '../../../components/AdminOptions'
 import WrapperAside from '../../../components/WrapperAside'
 
-import { ProfileContainer, ImgContainer, Img, Email, Textarea} from './styles'
+import { ProfileContainer, ImgContainer, Img, Email} from './styles'
 
 import Button from '../../../components/Button'
 import Input from '../../../components/Input'
+import TextArea from '../../../components/TextArea'
 import DefaulUserPofile from '../../../assets/icons/default_user.svg'
 
 export default function Profile() {
     const [profile, setProfile] = useState([])
+    const [about, setAbout] = useState('')
 
     useEffect(async () => {
         const { data } = await api.get('/admin/profile')
         setProfile(...data)
-        console.log(data)
+        setAbout(data[0].about_me)
+        console.log(data[0].about_me)
     }, [])
 
     return (
@@ -33,7 +36,7 @@ export default function Profile() {
 
                     <h1>{profile.name}</h1>
                     <Email>{profile.email}</Email>
-                    <Textarea name="about" id="about">{profile.about_me}</Textarea>
+                    <TextArea name="about" value={about} onChange={e => setAbout(e.target.value)}></TextArea>
                 </ProfileContainer>
 
                 <div>
