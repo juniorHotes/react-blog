@@ -27,7 +27,7 @@ export default function Profile() {
             <VerticalNav listOptions={
                 <AdminOptions />
             } />
-            <WrapperAside title='Perfil'>
+            <WrapperAside title='Editar Perfil'>
 
                 <ProfileContainer>
                     <ImgContainer>
@@ -36,7 +36,7 @@ export default function Profile() {
 
                     <h1>{profile.name}</h1>
                     <Email>{profile.email}</Email>
-                    <TextArea name="about" value={about} onChange={e => setAbout(e.target.value)}></TextArea>
+                    <TextArea label="Resumo sobre você" name="about" value={about} onChange={e => setAbout(e.target.value)}></TextArea>
                 </ProfileContainer>
 
                 <div>
