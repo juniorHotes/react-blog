@@ -1,14 +1,21 @@
 import React from 'react'
-import { Container, Label, TextAreaElement, Span } from './styles'
+import { Container, Label, TextAreaElement, Span, Invalid } from './styles'
 
 export default function TextArea(props) {
-    props.value.length > 250 ? console.log('Passou') : null
 
+    function validate() {
+        let msg = ''
+        if (props.value.length > 350) return msg = "Você exedeu o limite de caracteres" 
+        if (props.value.length == 0) return msg = "Escreva alguma coisa sobre você"
+    }
     return (
         <Container size={props.size}>
-            <Label htmlFor={props.name}>{props.label}</Label>
+            <Label htmlFor={props.name} invalid={validate()}>{props.label}</Label>
             <TextAreaElement {...props} />
-            <Span>Limite de 250 caracters /{props.value.length}</Span>
+            <Span invalid={validate()}>
+                {props.value.length} do limite de 350 caracteres
+            </Span>
+            <Invalid>{validate()}</Invalid>
         </Container>
     )
 }
