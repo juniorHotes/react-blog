@@ -14,7 +14,8 @@ import IconEdit from '../../../assets/icons/edit.svg'
 import IconDelete from '../../../assets/icons/delete.svg'
 
 export default function Category({ location }) {
-    const baseURL = location.pathname.slice(0, location.pathname.length -1)
+    const baseURL = location.pathname.slice(0, location.pathname.length - 1)
+    const [close, setClose] = useState(false)
 
     const dateFormat = useDateFormat
     const [categories, setCategories] = useState([])
@@ -43,23 +44,28 @@ export default function Category({ location }) {
 
     return (
         <>
-            <Dialog />
+            <Dialog
+                hidden={close}
+                title="Cadastrar nova categoria"
+                body={
+                    <form onSubmit={handleNewCategory}>
+                        <Input label="Nova categoria" type="text" placeholder='Nome da categoria'
+                            name="category"
+                            value={newCategory}
+                            onChange={e => setNewCategory(e.target.value)}
+                        />
+                        <Button primary size='1.4rem' >Salvar</Button>
+                    </form>
+                }
+
+            />
             <VerticalNav listOptions={
                 <AdminOptions />
             } />
 
             <WrapperAside title='Categorias'
-                element={<Button primary size='1.4rem'>Nova Categoria</Button>}
+                element={<Button onClick={() => setClose(false)} primary size='1.4rem'>Nova Categoria</Button>}
             >
-                <form onSubmit={handleNewCategory}>
-                    <Input label="Nova categoria" type="text" placeholder='Nome da categoria'
-                        name="category"
-                        value={newCategory}
-                        onChange={e => setNewCategory(e.target.value)}
-                    />
-                    <Button primary size='1.4rem' >Salvar</Button>
-                </form>
-
                 <table>
                     <thead>
                         <tr>
@@ -88,7 +94,7 @@ export default function Category({ location }) {
                     </tbody>
                 </table>
 
-                <PageNavegation url={baseURL} count={count} set={(p) => setPage(p)}/>
+                <PageNavegation url={baseURL} count={count} set={(p) => setPage(p)} />
             </WrapperAside>
         </>
     )
