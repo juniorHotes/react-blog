@@ -40,15 +40,16 @@ export default function Profile() {
                 </ProfileContainer>
 
                 <div>
-                    <Input label="Linkedin" type="url" name="linkedin" placeholder='URL' size='50%' />
-                    <Input label="Youtube" type="url" name="youtube" placeholder='URL' size='50%' />
-                    <Input label="Github" type="url" name="github" placeholder='URL' size='50%' />
-                    <Input label="Twitch" type="url" name="twitch" placeholder='URL' size='50%' />
-                    <Input label="Instagram" type="url" name="instagram" placeholder='URL' size='50%' />
-                    <Input label="Facebook" type="url" name="facebook" placeholder='URL' size='50%' />
-                    <Input label="Twitter" type="url" name="twitter" placeholder='URL' size='50%' />
+                    <Input label="Linkedin" type="url" name="linkedin" placeholder='URL Exe: https://www.linkedin.com/in/jhon' size='50%' />
+                    <Input label="Youtube" type="url" name="youtube" placeholder='URL Exe: https://www.youtube.com/jhon' size='50%' />
+                    <Input label="Github" type="url" name="github" placeholder='URL Exe: https://www.github.com/jhon' size='50%' />
+                    <Input label="Twitch" type="url" name="twitch" placeholder='URL Exe: https://www.twitch.com/jhon' size='50%' />
+                    <Input label="Instagram" type="url" name="instagram" placeholder='URL Exe: https://www.instagram.com/jhon' size='50%' />
+                    <Input label="Facebook" type="url" name="facebook" placeholder='URL Exe: https://www.facebook.com/jhon' size='50%' />
+                    <Input label="Twitter" type="url" name="twitter" placeholder='URL Exe: https://www.twitter.com/jhon' size='50%' />
                 </div>
 
+                <Button secondary size='1.3rem'>Salvar alterações</Button>
             </WrapperAside>
         </>
     )

@@ -19,6 +19,7 @@ export const TextAreaElement = Styled.textarea`
     min-height: 200px;
     max-height: 400px;
     border: none;
+    border-bottom: 1px solid ${props => props.theme.color.global_subtitle_color};
     font-size: 2rem;
     padding: 8px;
 `
