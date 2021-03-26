@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, ContenProfile, ContainerImg, ImgProfile, DivSocial, AboutContent, ListOptions } from './styles.js'
+import DefaulUserPofile from '../../assets/icons/default_user.svg'
 
 export default function VerticalNav(props) {
     return (
@@ -7,7 +8,7 @@ export default function VerticalNav(props) {
             {props.showProfile &&
                 <ContenProfile>
                     <ContainerImg>
-                        <ImgProfile src="https://avatars.githubusercontent.com/u/48397952?s=460&u=ce14bd1c65778a22a65bc6f893cd88762587311b&v=4" />
+                        <ImgProfile src={DefaulUserPofile} />
                     </ContainerImg>
                     <h2>João Domingos</h2>
                     <DivSocial>
