@@ -22,4 +22,13 @@ export const InputElem = Styled.input`
         box-shadow: 1px 2px 5px rgba(0, 0, 0, .5);
         background-color: #FFF;
     }
+
+    &:hover {
+        box-shadow: 1px 2px 5px rgba(0, 0, 0, .5);
+        background-color: #FFF;
+    }
 ` 
+export const Invalid = Styled.strong`
+    display: block;
+    color: red;
+`
