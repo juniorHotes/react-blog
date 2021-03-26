@@ -6,7 +6,7 @@ export default function TextArea(props) {
     function validate() {
         let msg = ''
         if (props.value.length > 350) return msg = "Você exedeu o limite de caracteres" 
-        if (props.value.length == 0) return msg = "Escreva alguma coisa sobre você"
+        if (props.value.length == 0) return msg = "Campo obrigatório"
     }
     return (
         <Container size={props.size}>
