@@ -26,7 +26,7 @@ export default function Post({ location }) {
         const { data } = await api.get(baseURL + page)
         setPosts(data.post.rows)
 
-        setCount(Math.round(data.post.count / 8))
+        setCount(Math.ceil(data.post.count / 8))
     }, [page])
 
     return (
@@ -44,9 +44,9 @@ export default function Post({ location }) {
                         <tr>
                             <th>ID</th>
                             <th>Título</th>
-                            <th>Postado</th>
-                            <th>Editado</th>
-                            <th>Categoria</th>
+                            <th style={{width:'180px'}}>Postado</th>
+                            <th style={{width:'180px'}}>Editado</th>
+                            <th >Categoria</th>
                             <th>Ações</th>
                         </tr>
                     </thead>

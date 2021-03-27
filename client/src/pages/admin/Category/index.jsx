@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import useDateFormat from '../../../hooks/useDateFormat'
 import api from '../../../services/api'
 
@@ -15,7 +15,7 @@ import IconDelete from '../../../assets/icons/delete.svg'
 
 export default function Category({ location }) {
     const baseURL = location.pathname.slice(0, location.pathname.length - 1)
-    const [close, setClose] = useState(false)
+    const [close, setClose] = useState(true)
 
     const dateFormat = useDateFormat
     const [categories, setCategories] = useState([])
@@ -29,7 +29,7 @@ export default function Category({ location }) {
         const { data } = await api.get(baseURL + page)
         setCategories(data.categories.rows)
 
-        setCount(Math.round(data.categories.count / 8))
+        setCount(Math.ceil(data.categories.count / 8))
     }, [reload, page])
 
     async function handleNewCategory(e) {
@@ -71,8 +71,8 @@ export default function Category({ location }) {
                         <tr>
                             <th>ID</th>
                             <th>Título</th>
-                            <th>Criado</th>
-                            <th>Editado</th>
+                            <th style={{width:'180px'}}>Criado</th>
+                            <th style={{width:'180px'}}>Editado</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
